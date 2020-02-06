@@ -1,0 +1,11 @@
+%include "io.inc"
+
+section .text
+global CMAIN
+CMAIN:
+    ;write your code here
+    mov cl, 3
+    mov ebx, 1
+    shl ebx, cl
+    PRINT_UDEC 4, ebx
+    ret

@@ -1,0 +1,48 @@
+%include "io.inc"
+
+section .text
+section .data
+    nr: db '2'
+global CMAIN
+
+convert:
+    push ebp
+    mov ebp, esp
+    
+    xor edx, edx
+    xor eax, eax 
+    mov eax, [ebp + 8]
+    mov bl, byte[eax]
+    mov ecx, 0
+increase:
+    mov bl, byte[eax + ecx]
+    
+    cmp ebx, 48
+    jge next
+    jmp goodbye
+    
+next:
+    cmp ebx, 57
+    jle nexttwo
+    jmp goodbye
+    
+nexttwo:
+    sub ebx, 48
+    imul edx, 10
+    add edx, ebx
+    add ecx, 1
+    jmp increase
+
+goodbye:   
+    leave
+    ret
+    
+CMAIN:
+    mov ebp, esp; for correct debugging
+    ;write your code here
+    push nr
+    call convert
+    PRINT_DEC 4, edx
+    add esp, 4
+    
+    ret
